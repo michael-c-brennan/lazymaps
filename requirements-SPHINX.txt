@@ -1,0 +1,10 @@
+Sphinx
+sphinxcontrib-bibtex
+sphinx-prompt
+robpol86-sphinxcontrib-googleanalytics
+sphinxcontrib-contentui
+nbsphinx
+ipython
+sphinx_rtd_theme
+tabulate
+pandoc
