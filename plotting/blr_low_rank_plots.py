@@ -169,13 +169,16 @@ example_1_data = ave_data(ss, 'notlazy_iaf', num_trials, string)
 example_2_data = lazy_ave_data(500, 1, ss, 'lazy_iaf', num_trials, string)
 example_3_data = lazy_ave_data(20, 1, ss, 'lazy_iaf', num_trials, string)
 
+# Accounting for gradient evaluations done to build H
+example_3_data.steps = 5+example_3_data.steps
+example_2_data.steps = 5+example_2_data.steps
 
 plt.figure()
-plt.semilogy(example_1_data.steps, example_1_data.ave_neg_elbos,'*-', label='Baseline IAF')
+plt.semilogy(example_1_data.steps, example_1_data.ave_neg_elbos,'--', label='Baseline IAF')
 plt.semilogy(example_2_data.steps, example_2_data.ave_neg_elbos,'o-', label='$U$-IAF')
 plt.semilogy(example_3_data.steps, example_3_data.ave_neg_elbos,'x-', label='$U_r$-IAF')
 plt.legend(loc=0, fontsize = 18)
-plt.xlabel('Iteration', fontsize=18)
+plt.xlabel('Iteration*', fontsize=18)
 plt.xticks([0, 5000, 10000, 15000, 20000], fontsize=18)
 plt.yticks(fontsize=18)
 plt.tight_layout()
@@ -185,11 +188,11 @@ plt.show()
 
 
 plt.figure()
-plt.semilogy(example_1_data.steps, example_1_data.ave_traces,'*-', label='Baseline IAF')
+plt.semilogy(example_1_data.steps, example_1_data.ave_traces,'--', label='Baseline IAF')
 plt.semilogy(example_2_data.steps, example_2_data.ave_traces,'o-', label='$U$-IAF')
 plt.semilogy(example_3_data.steps, example_3_data.ave_traces,'x-', label='$U_r$-IAF')
 plt.legend(loc=0, fontsize = 18)
-plt.xlabel('Iteration', fontsize=18)
+plt.xlabel('Iteration*', fontsize=18)
 plt.xticks([0, 5000, 10000, 15000, 20000], fontsize=18)
 plt.yticks(fontsize=18)
 plt.tight_layout()
@@ -202,7 +205,7 @@ plt.figure()
 plt.semilogy(example_3_data.steps, example_3_data.ave_traces,'x-', label='Tr($H^{B}$)')
 plt.semilogy(example_3_data.steps, example_3_data.ave_is_traces,'o-', label='Tr($H$)')
 plt.legend(loc=0, fontsize = 18)
-plt.xlabel('Iteration', fontsize=18)
+plt.xlabel('Iteration*', fontsize=18)
 plt.xticks([0, 5000, 10000, 15000, 20000], fontsize=18)
 plt.yticks(fontsize=18)
 plt.tight_layout()
@@ -213,11 +216,11 @@ plt.show()
 
 
 plt.figure()
-plt.semilogy(example_1_data.steps, example_1_data.ave_is_traces,'*-', label='Baseline IAF')
+plt.semilogy(example_1_data.steps, example_1_data.ave_is_traces,'--', label='Baseline IAF')
 plt.semilogy(example_2_data.steps, example_2_data.ave_is_traces,'o-', label='$U$-IAF')
 plt.semilogy(example_3_data.steps, example_3_data.ave_is_traces,'x-', label='$U_r$-IAF')
 plt.legend(loc=0, fontsize = 18)
-plt.xlabel('Iteration', fontsize=18)
+plt.xlabel('Iteration*', fontsize=18)
 plt.xticks([0, 5000, 10000, 15000, 20000], fontsize=18)
 plt.yticks(fontsize=18)
 plt.tight_layout()
@@ -274,7 +277,7 @@ print('\\\\')
 
 
 
-
+plt.figure()
 idx = [i for i in range(1,31)]
 original_eigvals = example_3_data.eigvals[0][0]
 after1_eigvals = example_3_data.eigvals[0][1]
@@ -284,7 +287,7 @@ plt.xlabel('Eigenvalue index', fontsize=18)
 plt.legend(loc=0, fontsize = 18)
 plt.xticks(fontsize=18)
 plt.yticks(fontsize=18)
-plt.legend(loc=0, fontsize=18)
+plt.legend(loc=3, fontsize=18)
 plt.tight_layout()
 fig_name = 'blr_lr_evs.pdf'
 plt.savefig(fig_name)

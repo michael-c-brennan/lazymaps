@@ -169,12 +169,19 @@ example_2_data = lazy_ave_data(500, 1, ss, 'lazy_iaf', num_trials, string)
 example_3_data = lazy_ave_data(200, 3, ss, 'lazy_iaf', num_trials, string)
 
 
+# Accounting for gradient evaluations done to build H
+example_3_data.steps = 5+example_3_data.steps
+example_3_data.steps[5:] = 5+example_3_data.steps[5:]
+example_3_data.steps[10:] = 5+example_3_data.steps[10:]
+example_2_data.steps = 5+example_2_data.steps
+
+
 plt.figure()
-plt.semilogy(example_1_data.steps, example_1_data.ave_neg_elbos, '*-', label='Baseline IAF')
+plt.semilogy(example_1_data.steps, example_1_data.ave_neg_elbos, '--', label='Baseline IAF')
 plt.semilogy(example_2_data.steps, example_2_data.ave_neg_elbos,'o-', label='$U$-IAF')
 plt.semilogy(example_3_data.steps, example_3_data.ave_neg_elbos,'x-', label='G3-IAF')
 plt.legend(loc=0, fontsize = 18)
-plt.xlabel('Iteration', fontsize=18)
+plt.xlabel('Iteration*', fontsize=18)
 plt.xticks([0, 5000, 10000, 15000, 20000], fontsize=18)
 plt.yticks(fontsize=18)
 plt.tight_layout()
@@ -184,11 +191,11 @@ plt.show()
 
 
 plt.figure()
-plt.semilogy(example_1_data.steps, example_1_data.ave_traces,'*-', label='Baseline IAF')
+plt.semilogy(example_1_data.steps, example_1_data.ave_traces,'--', label='Baseline IAF')
 plt.semilogy(example_2_data.steps, example_2_data.ave_traces,'o-', label='$U$-IAF')
 plt.semilogy(example_3_data.steps, example_3_data.ave_traces,'x-', label='G3-IAF')
 plt.legend(loc=0, fontsize = 18)
-plt.xlabel('Iteration', fontsize=18)
+plt.xlabel('Iteration*', fontsize=18)
 plt.xticks([0, 5000, 10000, 15000, 20000], fontsize=18)
 plt.yticks(fontsize=18)
 plt.tight_layout()
@@ -198,11 +205,11 @@ plt.show()
 
 
 plt.figure()
-plt.semilogy(example_1_data.steps, example_1_data.ave_is_traces,'*-', label='Baseline IAF')
+plt.semilogy(example_1_data.steps, example_1_data.ave_is_traces,'--', label='Baseline IAF')
 plt.semilogy(example_2_data.steps, example_2_data.ave_is_traces,'o-', label='$U$-IAF')
 plt.semilogy(example_3_data.steps, example_3_data.ave_is_traces,'x-', label='G3-IAF')
 plt.legend(loc=0, fontsize = 18)
-plt.xlabel('Iteration', fontsize=18)
+plt.xlabel('Iteration*', fontsize=18)
 plt.xticks([0, 5000, 10000, 15000, 20000], fontsize=18)
 plt.yticks(fontsize=18)
 plt.tight_layout()
@@ -256,6 +263,7 @@ for m,s in zip(example_3_medians, example_3_iqr):
     print(' & $' + str(latex_float(m)) + '$ ($' + str(latex_float(s)) + '$)', end=" ")
 print('\\\\')
 
+plt.figure()
 original_eigvals = example_3_data.eigvals[0][0]
 after1_eigvals = example_3_data.eigvals[0][1]
 after2_eigvals = example_3_data.eigvals[0][2]

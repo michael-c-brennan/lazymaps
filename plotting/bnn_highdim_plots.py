@@ -166,14 +166,21 @@ ss = 100
 
 string = 'final_bnn_highdim_results/hd_result_bnn'
 example_1_data = ave_data(ss, 'notlazy_linear', num_trials, string)
-example_2_data = lazy_ave_data(581, 1, ss, 'lazy_linear', num_trials, string)
+#example_2_data = lazy_ave_data(581, 1, ss, 'lazy_linear', num_trials, string)
 example_3_data = lazy_ave_data(200, 3, ss, 'lazy_linear', num_trials, string)
 
+# Accounting for gradient evaluations done to build H
+example_3_data.steps = 5+example_3_data.steps
+example_3_data.steps[5:] = 5+example_3_data.steps[5:]
+example_3_data.steps[10:] = 5+example_3_data.steps[10:]
+
+
+
 plt.figure()
-plt.semilogy(example_1_data.steps, example_1_data.ave_neg_elbos,'*-', label='Baseline affine')
+plt.semilogy(example_1_data.steps, example_1_data.ave_neg_elbos,'--', label='Baseline Affine')
 plt.semilogy(example_3_data.steps, example_3_data.ave_neg_elbos,'o-', label='G3-Affine')
 plt.legend(loc=0, fontsize = 18)
-plt.xlabel('Iteration', fontsize=18)
+plt.xlabel('Iteration*', fontsize=18)
 plt.xticks([0, 5000, 10000, 15000, 20000], fontsize=18)
 plt.yticks(fontsize=18)
 plt.tight_layout()
@@ -182,10 +189,10 @@ plt.savefig(fig_name)
 plt.show()
 
 plt.figure()
-plt.semilogy(example_1_data.steps, example_1_data.ave_traces,'*-', label='Baseline affine')
+plt.semilogy(example_1_data.steps, example_1_data.ave_traces,'--', label='Baseline Affine')
 plt.semilogy(example_3_data.steps, example_3_data.ave_traces,'o-', label='G3-Affine')
 plt.legend(loc=0, fontsize = 18)
-plt.xlabel('Iteration', fontsize=18)
+plt.xlabel('Iteration*', fontsize=18)
 plt.xticks([0, 5000, 10000, 15000, 20000], fontsize=18)
 plt.yticks(fontsize=18)
 plt.tight_layout()
@@ -195,10 +202,10 @@ plt.show()
 
 
 plt.figure()
-plt.semilogy(example_1_data.steps, example_1_data.ave_is_traces,'*-',  label='Baseline affine')
+plt.semilogy(example_1_data.steps, example_1_data.ave_is_traces,'--', label='Baseline Affine')
 plt.semilogy(example_3_data.steps, example_3_data.ave_is_traces,'o-', label='G3-Affine')
 plt.legend(loc=0, fontsize = 18)
-plt.xlabel('Iteration', fontsize=18)
+plt.xlabel('Iteration*', fontsize=18)
 plt.xticks([0, 5000, 10000, 15000, 20000], fontsize=18)
 plt.yticks(fontsize=18)
 plt.tight_layout()
@@ -206,6 +213,8 @@ fig_name = 'bnn_is_traces.pdf'
 plt.savefig(fig_name)
 plt.show()
 #
+
+plt.figure()
 original_eigvals = example_3_data.eigvals[0][0]
 after1_eigvals = example_3_data.eigvals[0][1]
 after2_eigvals = example_3_data.eigvals[0][2]
