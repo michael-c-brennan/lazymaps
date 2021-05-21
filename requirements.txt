@@ -44,7 +44,7 @@ seaborn==0.10.0
 six==1.14.0
 sklearn==0.0
 tensorboard==2.1.1
-tensorflow==2.1.2
+tensorflow==2.5.0
 tensorflow-datasets==2.1.0
 tensorflow-estimator==2.1.0
 tensorflow-metadata==0.21.1
