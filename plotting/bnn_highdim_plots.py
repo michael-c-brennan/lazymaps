@@ -238,10 +238,10 @@ d1[:,:2] = .5*d1[:,:2]  # 1/2 in trace diagnostic
 d1[:,2] = -d1[:,2]  # flip ELBO to -ELBO
 d1[:,3] = .5*d1[:,3]  # 1/2 in variance diagnostic
 
-d2 = np.array(example_2_data.diagnostics)
-d2[:,:2] = .5*d2[:,:2]  # 1/2 in trace diagnostic
-d2[:,2] = -d2[:,2]  # flip ELBO to -ELBO
-d2[:,3] = .5*d2[:,3]  # 1/2 in variance diagnostic
+# d2 = np.array(example_2_data.diagnostics)
+# d2[:,:2] = .5*d2[:,:2]  # 1/2 in trace diagnostic
+# d2[:,2] = -d2[:,2]  # flip ELBO to -ELBO
+# d2[:,3] = .5*d2[:,3]  # 1/2 in variance diagnostic
 
 d3 = np.array(example_3_data.diagnostics)
 d3[:,:2] = .5*d3[:,:2]  # 1/2 in trace diagnostic
@@ -250,11 +250,11 @@ d3[:,3] = .5*d3[:,3]  # 1/2 in variance diagnostic
 
 
 example_1_medians = np.median(d1, 0)
-example_2_medians = np.median(d2, 0)
+# example_2_medians = np.median(d2, 0)
 example_3_medians = np.median(d3, 0)
 
 # shift ELBO to baseline
-example_2_medians[2] = example_2_medians[2] - example_1_medians[2]
+#example_2_medians[2] = example_2_medians[2] - example_1_medians[2]
 example_3_medians[2] = example_3_medians[2] - example_1_medians[2]
 
 
@@ -263,7 +263,7 @@ example_3_medians[2] = example_3_medians[2] - example_1_medians[2]
 #            delimiter=' & ', fmt='%2.2e', newline=' \\\\\n')
 #
 example_1_iqr = np.subtract(*np.percentile(d1, [75, 25], 0))
-example_2_iqr = np.subtract(*np.percentile(d2, [75, 25], 0))
+#example_2_iqr = np.subtract(*np.percentile(d2, [75, 25], 0))
 example_3_iqr = np.subtract(*np.percentile(d3, [75, 25], 0))
 # np.savetxt("bnn_highdim_diagnostic_std.csv",
 #            np.array([example_1_iqr, example_2_iqr, example_3_iqr]),
@@ -275,10 +275,10 @@ for m,s in zip(example_1_medians, example_1_iqr):
     print(' & $' + str(latex_float(m)) + '$ ($' + str(latex_float(s)) + '$)', end=" ")
 print('\\\\')
 
-print('$U$-Affine', end=" ")
-for m, s in zip(example_2_medians, example_2_iqr):
-    print(' & $' + str(latex_float(m)) + '$ ($' + str(latex_float(s)) + '$)', end=" ")
-print('\\\\')
+# print('$U$-Affine', end=" ")
+# for m, s in zip(example_2_medians, example_2_iqr):
+#     print(' & $' + str(latex_float(m)) + '$ ($' + str(latex_float(s)) + '$)', end=" ")
+# print('\\\\')
 
 print('G3-Affine', end=" ")
 for m,s in zip(example_3_medians, example_3_iqr):

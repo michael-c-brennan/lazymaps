@@ -513,7 +513,7 @@ class IafMap:
         bijectors = []
         for i in range(num_stages):
             made = tfb.AutoregressiveNetwork(params=2,
-                                             hidden_units=list(np.repeat(128, depth)),
+                                             hidden_units=list(np.repeat(4, depth)),
                                              dtype=dtype,
                                              activation='elu',
                                              kernel_initializer=self.kernel_init)

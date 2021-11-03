@@ -175,28 +175,28 @@ example_2_data.steps = 5+example_2_data.steps
 
 plt.figure()
 plt.semilogy(example_1_data.steps, example_1_data.ave_neg_elbos,'--', label='Baseline IAF')
-plt.semilogy(example_2_data.steps, example_2_data.ave_neg_elbos,'o-', label='$U$-IAF')
-plt.semilogy(example_3_data.steps, example_3_data.ave_neg_elbos,'x-', label='$U_r$-IAF')
+#plt.semilogy(example_2_data.steps, example_2_data.ave_neg_elbos,'o-', label='$U$-IAF')
+plt.semilogy(example_3_data.steps, example_3_data.ave_neg_elbos,'x-', label='Lazy IAF, $r = 20$')
 plt.legend(loc=0, fontsize = 18)
 plt.xlabel('Iteration*', fontsize=18)
 plt.xticks([0, 5000, 10000, 15000, 20000], fontsize=18)
 plt.yticks(fontsize=18)
 plt.tight_layout()
-fig_name = 'blr_lr_elbos.pdf'
+fig_name = 'blr_lr_elbos_pres.pdf'
 plt.savefig(fig_name)
 plt.show()
 
 
 plt.figure()
 plt.semilogy(example_1_data.steps, example_1_data.ave_traces,'--', label='Baseline IAF')
-plt.semilogy(example_2_data.steps, example_2_data.ave_traces,'o-', label='$U$-IAF')
-plt.semilogy(example_3_data.steps, example_3_data.ave_traces,'x-', label='$U_r$-IAF')
+#plt.semilogy(example_2_data.steps, example_2_data.ave_traces,'o-', label='$U$-IAF')
+plt.semilogy(example_3_data.steps, example_3_data.ave_traces,'x-', label='Lazy IAF, $r = 20$')
 plt.legend(loc=0, fontsize = 18)
 plt.xlabel('Iteration*', fontsize=18)
 plt.xticks([0, 5000, 10000, 15000, 20000], fontsize=18)
 plt.yticks(fontsize=18)
 plt.tight_layout()
-fig_name = 'blr_lr_traces.pdf'
+fig_name = 'blr_lr_traces_pres.pdf'
 plt.savefig(fig_name)
 plt.show()
 
@@ -281,14 +281,14 @@ plt.figure()
 idx = [i for i in range(1,31)]
 original_eigvals = example_3_data.eigvals[0][0]
 after1_eigvals = example_3_data.eigvals[0][1]
-plt.semilogy(idx, original_eigvals[:30], '*-', label='Eig($H^{B}$)')
-plt.semilogy(idx, after1_eigvals[:30], 'o-', label='Eig($H^{B}_1$)')
+plt.semilogy(idx, original_eigvals[:30], '*-', label='Before training')
+#plt.semilogy(idx, after1_eigvals[:30], 'o-', label='After training')
 plt.xlabel('Eigenvalue index', fontsize=18)
 plt.legend(loc=0, fontsize = 18)
 plt.xticks(fontsize=18)
 plt.yticks(fontsize=18)
 plt.legend(loc=3, fontsize=18)
 plt.tight_layout()
-fig_name = 'blr_lr_evs.pdf'
+fig_name = 'blr_lr_evs_not_trained.pdf'
 plt.savefig(fig_name)
 plt.show()

@@ -21,10 +21,10 @@ DTYPE = tf.float64
 
 # import data
 train = pd.read_csv("pd_speech_features.csv")
-num_pats = 20
+num_pats = 4
 # set up data set (1::3 to use first draw from each person rather than all 3)
 y_train = train.values[1::3, -1].astype(float)[:num_pats+1]
-x_train = train.values[1::3, 1:501].astype(float)[:num_pats+1,:]
+x_train = train.values[1::3, 1:4+1].astype(float)[:num_pats+1,:]
 x_train = preprocessing.scale(x_train)
 
 # get data dimensions
@@ -142,7 +142,7 @@ def run_lazy_experiment(lazy_rank, sample_size, num_iters, num_lazy_layers, num_
 
 # verbose = True computes diagnostics (ELBO, trace and variance diagnostics) every 1000 iterations
 # verbose = False will only report training loss
-example_number = 1 #int(sys.argv[1])
+example_number = 0 #int(sys.argv[1])
 sample_size = 100
 num_trials = 10
 
@@ -176,6 +176,34 @@ if example_number == 3:
                                 verbose=False)
 
 
+
+not_lazy_model = lm.IafMap(base_dist=base_dist,
+                    log_l=log_l,
+                      sample_size=10,
+                      num_iters=10,
+                      rank=num_features,
+                      num_stages=1,
+                      depth=1,
+                      whitening_bij=whitening_bij,
+                      verbose=False,
+                      step_size=1e-3)
+not_lazy_model.train()
+
+# lazy_model = lm.LazyMap(base_dist=base_dist,
+#                    num_lazy_layers=1,
+#                    rank=20,
+#                    num_iters=10,
+#                    log_l=log_l,
+#                    whitening_bij=whitening_bij,
+#                    h_sample_size=num_features,
+#                    sample_size=sample_size,
+#                    num_stages=4,
+#                    depth=2,
+#                    act='iaf',
+#                    verbose=False,
+#                    step_size=1e-3)
+#
+# lazy_model.train()
 # plotting histograms Appendix
 if False:
     bij = model.bij
